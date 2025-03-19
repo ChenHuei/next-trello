@@ -20,6 +20,7 @@ const initialBoard: Board = {
 interface BoardStore {
 	board: Board;
 	nextCardNumber: number; // 全局累加變數
+	draggingCard: string | null; // 目前拖曳中的卡片 ID
 	moveCard: (
 		sourceListId: string,
 		targetListId: string,
@@ -29,6 +30,7 @@ interface BoardStore {
 	moveList: (oldIndex: number, newIndex: number) => void;
 	addCard: (listId: string, text?: string) => void;
 	addList: (name: string) => void;
+	setDraggingCard: (cardId: string | null) => void; // 設定拖曳卡片
 }
 
 const useBoardStore = create<BoardStore>()(
@@ -36,6 +38,7 @@ const useBoardStore = create<BoardStore>()(
 		(set) => ({
 			board: initialBoard,
 			nextCardNumber: 1,
+			draggingCard: null,
 
 			moveCard: (sourceListId, targetListId, cardId, targetIndex) =>
 				set((state) => {
@@ -60,7 +63,7 @@ const useBoardStore = create<BoardStore>()(
 						}
 					});
 
-					return { board: { lists } };
+					return { board: { lists }, draggingCard: null };
 				}),
 
 			moveList: (oldIndex, newIndex) =>
@@ -100,6 +103,8 @@ const useBoardStore = create<BoardStore>()(
 						],
 					},
 				})),
+
+			setDraggingCard: (cardId) => set({ draggingCard: cardId }),
 		}),
 		{ name: 'board-storage' },
 	),

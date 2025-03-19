@@ -15,9 +15,11 @@ const List: React.FC<ListProps> = ({ list }) => {
 	return (
 		<div ref={setNodeRef} className="bg-white p-4 shadow-lg rounded-lg w-72">
 			<h2 className="font-bold text-lg mb-2">{list.name}</h2>
-			{list.cards.map((card) => (
-				<SortableItem key={card.id} id={card.id} text={card.text} />
-			))}
+			<div className="min-h-12">
+				{list.cards.map((card) => (
+					<SortableItem key={card.id} id={card.id} text={card.text} />
+				))}
+			</div>
 			<button
 				className="w-full mt-2 bg-blue-500 text-white py-1 px-3 rounded"
 				onClick={() => addCard(list.id, `新卡片 ${list.cards.length + 1}`)}>
