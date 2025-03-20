@@ -3,7 +3,7 @@ import { z } from 'zod';
 // 卡片結構
 export const CardSchema = z.object({
 	id: z.string(),
-	text: z.string().min(1),
+	name: z.string().min(1),
 });
 export type Card = z.infer<typeof CardSchema>;
 

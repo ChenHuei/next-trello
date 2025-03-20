@@ -4,10 +4,10 @@ import { CSS } from '@dnd-kit/utilities';
 
 interface SortableItemProps {
 	id: string;
-	text: string;
+	name: string;
 }
 
-const SortableItem: React.FC<SortableItemProps> = ({ id, text }) => {
+const SortableItem: React.FC<SortableItemProps> = ({ id, name }) => {
 	const {
 		attributes,
 		listeners,
@@ -26,11 +26,11 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, text }) => {
 	return (
 		<div
 			ref={setNodeRef}
+			style={style}
 			{...attributes}
 			{...listeners}
-			className="bg-stone-300 p-2 rounded mb-2 cursor-pointer shadow-md"
-			style={style}>
-			{text}
+			className="bg-stone-300 p-2 rounded mb-2 cursor-pointer shadow-md">
+			{name}
 		</div>
 	);
 };
