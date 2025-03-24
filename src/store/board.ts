@@ -6,11 +6,11 @@ import { Board, Card } from '@/types';
 // 初始資料
 const initialBoard: Board = {
 	lists: [
-		{ id: 'todo', name: '待辦', cards: [{ id: '1', name: '學習 Zustand' }] },
+		{ id: 'todo', name: '待辦', cards: [{ id: '1x', name: '學習 Zustand' }] },
 		{
 			id: 'doing',
 			name: '進行中',
-			cards: [{ id: '2', name: '開發 Trello Clone' }],
+			cards: [{ id: '2x', name: '開發 Trello Clone' }],
 		},
 		{ id: 'done', name: '已完成', cards: [] },
 	],

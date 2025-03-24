@@ -14,6 +14,7 @@ import {
 	useSensors,
 } from '@dnd-kit/core';
 import {
+	arrayMove,
 	SortableContext,
 	sortableKeyboardCoordinates,
 } from '@dnd-kit/sortable';
@@ -93,7 +94,40 @@ const Board = () => {
 	};
 
 	const handleDragEnd = (event: DragEndEvent) => {
-		console.log('event', event);
+		console.log('leo handleDragEnd', event);
+		const { active, over } = event;
+		const activeListId = board.lists.find((list) =>
+			list.cards.some((item) => item.id === active.id),
+		)?.id;
+		const overListId = board.lists.find((list) =>
+			list.cards.some((item) => item.id === over?.id),
+		)?.id;
+		if (!activeListId || !overListId || activeListId !== overListId) {
+			return;
+		}
+
+		const activeIndex =
+			board.lists
+				.find((list) => list.id === activeListId)
+				?.cards.findIndex((item) => item.id === active.id) ?? -1;
+
+		const overIndex =
+			board.lists
+				.find((list) => list.id === overListId)
+				?.cards.findIndex((item) => item.id === over?.id) ?? -1;
+
+		if (activeIndex > -1 && overIndex > -1 && activeIndex !== overIndex) {
+			const newLists = board.lists.map((list) => {
+				if (list.id === overListId) {
+					return {
+						...list,
+						cards: arrayMove(list.cards, activeIndex, overIndex),
+					};
+				}
+				return list;
+			});
+			setBoard({ lists: newLists });
+		}
 		setDraggingCard(null);
 	};
 	return (
